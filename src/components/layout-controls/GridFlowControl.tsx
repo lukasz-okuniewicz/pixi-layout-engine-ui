@@ -44,7 +44,7 @@ export const GridFlowControl = <
     flowReverse?: boolean
     blockWidth?: number
     blockHeight?: number
-    orientation?: string
+    honeycombOrientation?: string
   },
 >({
   options,
@@ -168,11 +168,11 @@ export const GridFlowControl = <
             className="control-group"
             style={{ paddingLeft: '15px', borderLeft: '2px solid #555', marginTop: '10px' }}
           >
-            <label htmlFor="orientation">Orientation</label>
+            <label htmlFor="honeycombOrientation">Orientation</label>
             <select
-              id="orientation"
-              value={options.orientation || 'pointy-top'}
-              onChange={(e) => onOptionChange('orientation', e.target.value)}
+              id="honeycombOrientation"
+              value={options.honeycombOrientation || 'pointy-top'}
+              onChange={(e) => onOptionChange('honeycombOrientation', e.target.value)}
             >
               <option value="pointy-top">Pointy Top</option>
               <option value="flat-top">Flat Top</option>

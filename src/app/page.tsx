@@ -47,7 +47,7 @@ export default function Home() {
     rows: 3,
     path: 'M200,300 L400,50 L600,300 L800,550 L1000,300',
     rotateToPath: true,
-    orientation: 'pointy-top',
+    honeycombOrientation: 'pointy-top',
     depthSpacing: 0.85,
     tileWidth: 80,
     tileHeight: 40,
