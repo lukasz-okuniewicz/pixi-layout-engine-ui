@@ -104,8 +104,8 @@ export const PixiCanvas: React.FC<PixiCanvasProps> = ({ options }) => {
 
       applyLayout(container, finalOptions)
 
-      container.x += app.screen.width / 2
-      container.y += app.screen.height / 2
+      container.pivot.x -= app.screen.width / 2
+      container.pivot.y -= app.screen.height / 2
 
       border.clear()
       const zeroPivotLayouts = [
