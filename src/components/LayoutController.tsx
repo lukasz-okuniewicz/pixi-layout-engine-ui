@@ -38,6 +38,7 @@ import {PayoutZonesControl} from '@/components/layout-controls/PayoutZonesContro
 import {SpreadExplosionControl} from '@/components/layout-controls/SpreadExplosionControl'
 import {PyramidControl} from '@/components/layout-controls/PyramidControl'
 import {ReverseControl} from '@/components/layout-controls/ReverseControl'
+import {CornerOffsetControl} from '@/components/layout-controls/CornerOffsetControl'
 
 export type ExtendedLayoutOptions = LayoutOptions & {
   componentCount?: number
@@ -115,6 +116,11 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
         <PyramidControl options={options} onNumberChange={handleNumberChange} onOptionChange={handleOptionChange} />
       )}
       {config.usesGridFlow && <GridFlowControl options={options} onOptionChange={handleOptionChange} />}
+
+      {config.usesCornerOffset && !isHoneycombFlow && (
+        <CornerOffsetControl options={options} onNumberChange={handleNumberChange} />
+      )}
+
       {config.isCircle && (
         <CircleControl options={options} onNumberChange={handleNumberChange} onOptionChange={handleOptionChange} />
       )}

@@ -32,6 +32,7 @@ interface LayoutControlConfig {
   isPyramid?: boolean
   usesReverse?: boolean
   usesAngleControls?: boolean
+  usesCornerOffset?: boolean
 }
 
 export const layoutControlsConfig: Record<LayoutName, LayoutControlConfig> = {
@@ -50,6 +51,7 @@ export const layoutControlsConfig: Record<LayoutName, LayoutControlConfig> = {
     usesAlignItems: true,
     usesJustifyItems: true,
     usesGridFlow: true,
+    usesCornerOffset: true,
   },
   [layoutEnum.MASONRY]: {
     usesGapSpacing: true,
@@ -61,6 +63,7 @@ export const layoutControlsConfig: Record<LayoutName, LayoutControlConfig> = {
     usesColumns: true,
     isPerimeter: true,
     usesSizing: true,
+    usesCornerOffset: true,
   },
   [layoutEnum.FLEX_WRAP]: {
     usesGapSpacing: true,
@@ -209,4 +212,5 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
     'sortDirection',
   ],
   usesReverse: ['isReversed'],
+  usesCornerOffset: ['cornerOffset'],
 }

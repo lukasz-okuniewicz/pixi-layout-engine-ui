@@ -7,4 +7,5 @@ export interface LayoutOptions extends LO {
   layoutName?: LayoutName
   radiusOffsetType?: 'none' | 'wave' | 'spiral_in' | 'random'
   componentCount?: number
+  cornerOffset?: number
 }

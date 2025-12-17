@@ -37,6 +37,8 @@ export const layoutHelpData: Record<string, HelpContent> = {
         'Controls the size of the rectangular blocks used by the `block-fill` flow pattern.',
       'Enable Item Spanning':
         'Switches to an advanced mode where components can use `colSpan` and `rowSpan` properties. Most complex flow directions do not apply in this mode.',
+      'Corner Offset':
+        'Explodes (positive values) or tucks in (negative values) the items at the four corners of the grid. Useful for creating rounded grid appearances or stylistic breaks.',
     },
   },
   [layoutEnum.MASONRY]: {
