@@ -9,6 +9,10 @@ type PerimeterOptions = {
   offset?: number
   rows?: number
   autoRows?: boolean
+  globalRotation?: number
+  perspectiveY?: number
+  depthScale?: number
+  enableZIndex?: boolean
 }
 
 interface PerimeterControlProps<T extends PerimeterOptions> {
@@ -32,73 +36,61 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
       </div>
 
       {!options.autoRows && (
-        <>
-          <div className="control-group">
-            <label htmlFor="offset-range">
-              Rows <span>{options.rows}</span>
-            </label>
-            <input
-              type="range"
-              id="offset-rows"
-              min="1"
-              max="100"
-              step="1"
-              value={options.rows || 5}
-              onChange={(e) => onOptionChange('rows', parseFloat(e.target.value))}
-            />
-          </div>
-        </>
+        <div className="control-group">
+          <label>Rows: {options.rows}</label>
+          <input
+            type="range"
+            min="1"
+            max="20"
+            value={options.rows || 3}
+            onChange={(e) => onOptionChange('rows', parseFloat(e.target.value))}
+          />
+        </div>
       )}
 
-      <div className="control-group">
-        <label htmlFor="start-corner-select">Start Corner</label>
-        <select
-          id="start-corner-select"
-          value={options.startCorner || 'top-left'}
-          onChange={(e) => onOptionChange('startCorner', e.target.value)}
-        >
-          <option value="top-left">Top Left</option>
-          <option value="top-right">Top Right</option>
-          <option value="bottom-right">Bottom Right</option>
-          <option value="bottom-left">Bottom Left</option>
-        </select>
-      </div>
+      <div
+        className="control-group full-width"
+        style={{ marginTop: '1rem', borderTop: '1px solid #444', paddingTop: '1rem' }}
+      >
+        <h4>3D Perspective</h4>
 
-      <div className="control-group">
-        <label htmlFor="direction-select">Direction</label>
-        <select
-          id="direction-select"
-          value={options.direction || 'clockwise'}
-          onChange={(e) => onOptionChange('direction', e.target.value)}
-        >
-          <option value="clockwise">Clockwise</option>
-          <option value="counter-clockwise">Counter-Clockwise</option>
-        </select>
-      </div>
+        <label>Rotation ({options.globalRotation || 0}°)</label>
+        <input
+          type="range"
+          min="0"
+          max="360"
+          value={options.globalRotation || 0}
+          onChange={(e) => onOptionChange('globalRotation', parseFloat(e.target.value))}
+        />
 
-      <div className="control-group">
-        <label htmlFor="distribution-select">Distribution</label>
-        <select
-          id="distribution-select"
-          value={options.distribution || 'even'}
-          onChange={(e) => onOptionChange('distribution', e.target.value)}
-        >
-          <option value="even">Evenly Spaced</option>
-          <option value="packed">Packed Together</option>
-        </select>
-      </div>
+        <label style={{ marginTop: 10 }}>Tilt (Y) ({options.perspectiveY ?? 1})</label>
+        <input
+          type="range"
+          min="0.1"
+          max="1"
+          step="0.05"
+          value={options.perspectiveY ?? 1}
+          onChange={(e) => onOptionChange('perspectiveY', parseFloat(e.target.value))}
+        />
 
-      <div className="control-group">
-        <label htmlFor="rotation-select">Rotation</label>
-        <select
-          id="rotation-select"
-          value={options.rotation || 'none'}
-          onChange={(e) => onOptionChange('rotation', e.target.value)}
-        >
-          <option value="none">None</option>
-          <option value="face-outward">Face Outward</option>
-          <option value="face-inward">Face Inward</option>
-        </select>
+        <label style={{ marginTop: 10 }}>Depth Scale ({options.depthScale ?? 0})</label>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value={options.depthScale ?? 0}
+          onChange={(e) => onOptionChange('depthScale', parseFloat(e.target.value))}
+        />
+
+        <label className="checkbox-label" style={{ marginTop: 10 }}>
+          <input
+            type="checkbox"
+            checked={!!options.enableZIndex}
+            onChange={(e) => onOptionChange('enableZIndex', e.target.checked)}
+          />
+          Sort Z-Index by Depth
+        </label>
       </div>
 
       <div className="control-group">
@@ -112,18 +104,6 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
           value={options.offset || 0}
           onChange={(e) => onOptionChange('offset', parseFloat(e.target.value))}
         />
-      </div>
-
-      <div className="control-group">
-        <label className="checkbox-label">
-          <input
-            type="checkbox"
-            id="prioritize-corners-checkbox"
-            checked={!!options.prioritizeCorners}
-            onChange={(e) => onOptionChange('prioritizeCorners', e.target.checked)}
-          />
-          Prioritize Corners
-        </label>
       </div>
     </div>
   )

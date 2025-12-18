@@ -1,5 +1,5 @@
-import {layoutEnum, LayoutName} from 'pixi-layout-engine'
-import {ExtendedLayoutOptions} from '@/components/LayoutController'
+import { layoutEnum, LayoutName } from 'pixi-layout-engine'
+import { ExtendedLayoutOptions } from '@/components/LayoutController'
 
 interface LayoutControlConfig {
   usesSimpleSpacing?: boolean
@@ -183,10 +183,21 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
     'perspectiveY',
     'depthScale',
     'enableZIndex',
-    'globalRotation'
+    'globalRotation',
   ],
   isFlexWrap: ['maxWidth', 'maxHeight', 'alignContent'],
-  isPerimeter: ['prioritizeCorners', 'startCorner', 'distribution', 'cornerSortBy', 'offset', 'rotation'],
+  isPerimeter: [
+    'prioritizeCorners',
+    'startCorner',
+    'distribution',
+    'cornerSortBy',
+    'offset',
+    'rotation',
+    'globalRotation',
+    'perspectiveY',
+    'depthScale',
+    'enableZIndex',
+  ],
   isWave: ['amplitude', 'frequency'],
   isSpiral: ['separation', 'tightness'],
   isPath: ['path', 'rotateToPath'],
