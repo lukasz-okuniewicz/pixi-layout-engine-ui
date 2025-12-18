@@ -180,6 +180,10 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
     'rotationOffset',
     'radiusJitter',
     'angleJitter',
+    'perspectiveY',
+    'depthScale',
+    'enableZIndex',
+    'globalRotation'
   ],
   isFlexWrap: ['maxWidth', 'maxHeight', 'alignContent'],
   isPerimeter: ['prioritizeCorners', 'startCorner', 'distribution', 'cornerSortBy', 'offset', 'rotation'],

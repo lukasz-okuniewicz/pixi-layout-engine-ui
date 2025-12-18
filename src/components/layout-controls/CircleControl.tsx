@@ -173,6 +173,67 @@ export const CircleControl: React.FC<CircleControlProps> = ({ options, onNumberC
       </div>
 
       <div className="control-group">
+        <h4>3D Perspective & Rotation</h4>
+
+        {/* NEW SLIDER */}
+        <div className="sub-control">
+          <label htmlFor="globalRotation">
+            Carousel Rotation: <span>{options.globalRotation || 0}°</span>
+          </label>
+          <input
+            type="range"
+            id="globalRotation"
+            min="0"
+            max="360"
+            value={options.globalRotation || 0}
+            onChange={(e) => onNumberChange('globalRotation', e.target.value)}
+          />
+        </div>
+
+        <div className="sub-control">
+          <label htmlFor="perspectiveY">
+            Tilt (Y-Squash): <span>{options.perspectiveY ?? 1}</span>
+          </label>
+          <input
+            type="range"
+            id="perspectiveY"
+            min="0.1"
+            max="1"
+            step="0.05"
+            value={options.perspectiveY ?? 1}
+            onChange={(e) => onNumberChange('perspectiveY', e.target.value)}
+          />
+        </div>
+
+        <div className="sub-control">
+          <label htmlFor="depthScale">
+            Depth Scale: <span>{options.depthScale ?? 0}</span>
+          </label>
+          <input
+            type="range"
+            id="depthScale"
+            min="0"
+            max="1"
+            step="0.05"
+            value={options.depthScale ?? 0}
+            onChange={(e) => onNumberChange('depthScale', e.target.value)}
+          />
+        </div>
+
+        <div className="sub-control checkbox-control">
+          <label htmlFor="enableZIndex">
+            <input
+              id="enableZIndex"
+              type="checkbox"
+              checked={options.enableZIndex || false}
+              onChange={(e) => onOptionChange('enableZIndex', e.target.checked)}
+            />
+            Sort Z-Index by Depth
+          </label>
+        </div>
+      </div>
+
+      <div className="control-group">
         <h4>Shape & Form</h4>
         <div className="sub-control">
           <label htmlFor="spiralFactor">

@@ -8,4 +8,8 @@ export interface LayoutOptions extends LO {
   radiusOffsetType?: 'none' | 'wave' | 'spiral_in' | 'random'
   componentCount?: number
   cornerOffset?: number
+  perspectiveY?: number
+  depthScale?: number
+  enableZIndex?: boolean
+  globalRotation?: number;
 }

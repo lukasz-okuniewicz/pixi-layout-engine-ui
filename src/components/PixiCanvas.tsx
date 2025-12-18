@@ -53,6 +53,8 @@ export const PixiCanvas: React.FC<PixiCanvasProps> = ({ options }) => {
       canvasRef.current.appendChild(app.canvas)
 
       const container = new PIXI.Container()
+      container.sortableChildren = true;
+      containerRef.current = container
       const border = new PIXI.Graphics()
       containerRef.current = container
       borderRef.current = border
