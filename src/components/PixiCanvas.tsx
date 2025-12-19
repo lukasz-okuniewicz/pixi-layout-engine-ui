@@ -1,11 +1,11 @@
 'use client'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as PIXI from 'pixi.js'
-import {applyLayout, LayoutComponent, layoutEnum, LayoutOptions as EngineOptions} from 'pixi-layout-engine'
-import {svgPathProperties as SvgPathProperties} from 'svg-path-properties'
-import type {ExtendedLayoutOptions} from './LayoutController'
-import {Delaunay} from 'd3-delaunay'
+import { applyLayout, LayoutComponent, layoutEnum, LayoutOptions as EngineOptions } from 'pixi-layout-engine'
+import { svgPathProperties as SvgPathProperties } from 'svg-path-properties'
+import type { ExtendedLayoutOptions } from './LayoutController'
+import { Delaunay } from 'd3-delaunay'
 
 interface PixiCanvasProps {
   options: ExtendedLayoutOptions
@@ -53,7 +53,7 @@ export const PixiCanvas: React.FC<PixiCanvasProps> = ({ options }) => {
       canvasRef.current.appendChild(app.canvas)
 
       const container = new PIXI.Container()
-      container.sortableChildren = true;
+      container.sortableChildren = true
       containerRef.current = container
       const border = new PIXI.Graphics()
       containerRef.current = container
@@ -196,6 +196,8 @@ export const PixiCanvas: React.FC<PixiCanvasProps> = ({ options }) => {
 
         const component = gfx as LayoutComponent
         component.value = componentValue
+
+        ;(component as any).layoutId = i
 
         if (layoutName === layoutEnum.PAYOUT_ZONES && zones && zones.length > 0) {
           const randomZoneIndex = i % zones.length
