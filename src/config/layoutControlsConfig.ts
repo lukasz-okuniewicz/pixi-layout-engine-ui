@@ -182,6 +182,7 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
     'angleJitter',
     'perspectiveY',
     'depthScale',
+    'maxScale',
     'enableZIndex',
     'globalRotation',
   ],

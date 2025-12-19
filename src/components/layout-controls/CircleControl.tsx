@@ -121,7 +121,7 @@ export const CircleControl: React.FC<CircleControlProps> = ({ options, onNumberC
           <label htmlFor="sortBy">Sort By</label>
           <select
             id="sortBy"
-              // @ts-ignore
+            // @ts-ignore
             value={options.sortBy || 'null'}
             onChange={(e) => onOptionChange('sortBy', e.target.value === 'null' ? null : e.target.value)}
           >
@@ -175,7 +175,7 @@ export const CircleControl: React.FC<CircleControlProps> = ({ options, onNumberC
       <div className="control-group">
         <h4>3D Perspective & Rotation</h4>
 
-        {/* NEW SLIDER */}
+        {/* Rotation Slider */}
         <div className="sub-control">
           <label htmlFor="globalRotation">
             Carousel Rotation: <span>{options.globalRotation || 0}°</span>
@@ -190,6 +190,7 @@ export const CircleControl: React.FC<CircleControlProps> = ({ options, onNumberC
           />
         </div>
 
+        {/* Perspective Y Slider */}
         <div className="sub-control">
           <label htmlFor="perspectiveY">
             Tilt (Y-Squash): <span>{options.perspectiveY ?? 1}</span>
@@ -205,19 +206,39 @@ export const CircleControl: React.FC<CircleControlProps> = ({ options, onNumberC
           />
         </div>
 
+        {/* NEW Max Scale Slider */}
+        <div className="sub-control">
+          <label htmlFor="maxScale">
+            Max Scale (Front): <span>{options.maxScale ?? 1}</span>
+          </label>
+          <input
+            type="range"
+            id="maxScale"
+            min="0.1"
+            max="3"
+            step="0.1"
+            value={options.maxScale ?? 1}
+            onChange={(e) => onNumberChange('maxScale', e.target.value)}
+          />
+        </div>
+
+        {/* Depth Scale Slider */}
         <div className="sub-control">
           <label htmlFor="depthScale">
-            Depth Scale: <span>{options.depthScale ?? 0}</span>
+            Depth Falloff: <span>{options.depthScale ?? 0}</span>
           </label>
           <input
             type="range"
             id="depthScale"
             min="0"
-            max="1"
+            max="0.95"
             step="0.05"
             value={options.depthScale ?? 0}
             onChange={(e) => onNumberChange('depthScale', e.target.value)}
           />
+          <p className="control-note" style={{ marginTop: '2px', fontSize: '0.75em' }}>
+            % smaller the back items are compared to Max Scale.
+          </p>
         </div>
 
         <div className="sub-control checkbox-control">

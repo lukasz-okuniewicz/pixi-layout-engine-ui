@@ -5,7 +5,7 @@
   },
   "name": "pixi-layout-engine-ui",
   "description": "A lightweight component library for building flexible UIs and debug tools in Pixi.js, powered by the pixi-layout-engine.",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "d3-delaunay": "6.0.4",
-    "pixi-layout-engine": "2.3.0",
+    "pixi-layout-engine": "2.5.0",
     "next": "15.5.4",
     "pixi.js": "8.13.2",
     "react": "19.1.1",

@@ -1,4 +1,4 @@
-import {LayoutName, LayoutOptions as LO} from 'pixi-layout-engine'
+import { LayoutName, LayoutOptions as LO } from 'pixi-layout-engine'
 
 /**
  * Defines the complete set of options available for all layouts.
@@ -12,4 +12,5 @@ export interface LayoutOptions extends LO {
   depthScale?: number
   enableZIndex?: boolean
   globalRotation?: number;
+  maxScale?: number;
 }
