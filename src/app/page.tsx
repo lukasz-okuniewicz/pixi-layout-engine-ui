@@ -61,6 +61,7 @@ export default function Home() {
       { name: 'side_bet_1', bounds: { x: -400, y: -200, width: 190, height: 80 } },
       { name: 'side_bet_2', bounds: { x: 200, y: -200, width: 190, height: 80 } },
     ],
+    // @ts-ignore
     sortBy: null,
     spinDegrees: 0,
     itemAngleStep: 30,
