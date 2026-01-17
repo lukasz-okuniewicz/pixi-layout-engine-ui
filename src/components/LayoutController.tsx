@@ -40,6 +40,7 @@ import { PyramidControl } from '@/components/layout-controls/PyramidControl'
 import { ReverseControl } from '@/components/layout-controls/ReverseControl'
 import { CornerOffsetControl } from '@/components/layout-controls/CornerOffsetControl'
 import { ReelsControl } from './layout-controls/ReelsControl'
+import { ReelSpinnerControl } from '@/components/layout-controls/ReelSpinnerControl'
 
 export type ExtendedLayoutOptions = LayoutOptions & {
   componentCount?: number
@@ -160,6 +161,8 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
       {config.isWordCloud && <WordCloudControl options={options} onNumberChange={handleNumberChange} />}
 
       {config.isReels && <ReelsControl options={options} onNumberChange={handleNumberChange} />}
+
+      {config.isReelSpinner && <ReelSpinnerControl options={options} onNumberChange={handleNumberChange} />}
 
       <>
         <div className="control-group">

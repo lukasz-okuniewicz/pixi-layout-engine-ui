@@ -15,4 +15,7 @@ export interface LayoutOptions extends LO {
   maxScale?: number;
   stagger?: number;
   refill?: boolean;
+  spinDegrees?: number;
+  itemAngleStep?: number;
+  perspective?: number;
 }

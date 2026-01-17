@@ -298,4 +298,15 @@ export const layoutHelpData: Record<string, HelpContent> = {
       'Gap Spacing': 'Space between symbols and between reels.',
     },
   },
+  [layoutEnum.REEL_SPINNER]: {
+    title: 'Reel Spinner (3D Drum)',
+    description:
+      'Simulates a 3D rotating cylinder, like a single vertical slot reel. ItemsRecede and scale down as they move away from the center "winning" position.',
+    settings: {
+      'Spin Degrees': 'The rotation of the drum. Change this to animate the reel spinning.',
+      Radius: 'The depth of the drum.',
+      'Item Angle Step': 'Degrees of separation between items on the cylinder face.',
+      'Depth Scale': 'How much items shrink as they rotate towards the top/bottom edges.',
+    },
+  },
 }

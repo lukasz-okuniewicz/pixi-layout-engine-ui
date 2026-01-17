@@ -34,6 +34,7 @@ interface LayoutControlConfig {
   usesAngleControls?: boolean
   usesCornerOffset?: boolean
   isReels?: boolean
+  isReelSpinner?: boolean
 }
 
 export const layoutControlsConfig: Record<LayoutName, LayoutControlConfig> = {
@@ -153,9 +154,14 @@ export const layoutControlsConfig: Record<LayoutName, LayoutControlConfig> = {
     usesColumns: true,
     usesGapSpacing: true,
     usesSizing: true,
-    usesAlignItems: true, // Used for Top vs Bottom gravity
-    usesJustifyItems: true, // Horizontal alignment in reel
+    usesAlignItems: true,
+    usesJustifyItems: true,
     isReels: true,
+  },
+  [layoutEnum.REEL_SPINNER]: {
+    usesSizing: true,
+    isReelSpinner: true,
+    usesJustifyContent: true,
   },
 }
 
@@ -239,4 +245,5 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
   usesReverse: ['isReversed'],
   usesCornerOffset: ['cornerOffset'],
   isReels: ['stagger'],
+  isReelSpinner: ['spinDegrees', 'radius', 'itemAngleStep', 'depthScale', 'width', 'height'],
 }

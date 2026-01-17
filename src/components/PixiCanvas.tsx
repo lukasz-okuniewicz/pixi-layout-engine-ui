@@ -27,26 +27,32 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
   const canvasRef = useRef<HTMLDivElement>(null)
   const appRef = useRef<PIXI.Application | null>(null)
   const containerRef = useRef<PIXI.Container | null>(null)
+  const maskRef = useRef<PIXI.Graphics | null>(null) // Ref for the clipping window
   const componentsRef = useRef<AnimatedLayoutComponent[]>([])
   const prevOptions = useRef<Partial<ExtendedLayoutOptions>>({})
 
   const [isPixiReady, setIsPixiReady] = useState(false)
 
+  // 1. Initialize PIXI
   useEffect(() => {
     let isCancelled = false
     const init = async () => {
       if (!canvasRef.current) return
       const app = new PIXI.Application()
       await app.init({ resizeTo: window, background: '#2c3e50', antialias: true })
+
       if (isCancelled) {
         app.destroy(true, { children: true })
         return
       }
+
       appRef.current = app
       canvasRef.current.appendChild(app.canvas)
+
       const container = new PIXI.Container()
       containerRef.current = container
       app.stage.addChild(container)
+
       setIsPixiReady(true)
     }
     init()
@@ -56,6 +62,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
     }
   }, [])
 
+  // 2. Animation Ticker (LERP)
   useEffect((): any => {
     if (!isPixiReady || !appRef.current) return
     const ticker = (t: PIXI.Ticker) => {
@@ -71,6 +78,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
     return () => appRef.current?.ticker.remove(ticker)
   }, [isPixiReady])
 
+  // 3. Helper: Create Symbols
   const createSymbol = (index: number, reelIdx: number) => {
     const colors = [0xde3249, 0xf5b642, 0x69c4a0, 0x2472a4, 0x8663a6]
     const componentValue = Math.random() * 100 + 20
@@ -113,23 +121,24 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
 
     gfx.reelIndex = reelIdx
     gfx.value = componentValue
-    gfx.layoutId = index
+    gfx.layoutId = index // Used for stable sorting in Reel Spinner
     gfx.isNew = true
     return gfx
   }
 
+  // 4. Main Layout Application
   const applyCurrentLayout = () => {
     if (!containerRef.current || !appRef.current || componentsRef.current.length === 0) return
     const container = containerRef.current
     const app = appRef.current
 
-    // Snapshot for LERP
+    // Snapshot current positions for LERPing
     const startPositions = new Map<AnimatedLayoutComponent, { x: number; y: number }>()
     componentsRef.current.forEach((c) => {
       startPositions.set(c, { x: c.x, y: c.y })
     })
 
-    // SPECIAL CASE: Voronoi needs points spread out before calculation
+    // Seed Voronoi
     if (options.layoutName === layoutEnum.VORONOI) {
       componentsRef.current.forEach((c) => {
         if (c.x === 0 && c.y === 0) {
@@ -146,13 +155,13 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
       voronoiParser: options.layoutName === layoutEnum.VORONOI ? Delaunay : undefined,
     }
 
-    // Apply Layout engine
+    // Call Layout Engine
     applyLayout(container, engineOptions)
 
-    // CENTERING LOGIC
+    // Stage Centering
     container.position.set(app.screen.width / 2, app.screen.height / 2)
 
-    // Strictly layouts that center on the origin (0,0)
+    // Strictly layouts that stay centered on the origin (0,0)
     const originCenteredLayouts = [
       layoutEnum.CIRCLE,
       layoutEnum.SPIRAL,
@@ -160,18 +169,44 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
       layoutEnum.BUBBLE,
       layoutEnum.WORD_CLOUD,
       layoutEnum.CIRCLE_PACK,
+      layoutEnum.REEL_SPINNER, // Added REEL_SPINNER here to keep centering stable
     ]
 
     if (originCenteredLayouts.includes(options.layoutName as any)) {
       container.pivot.set(0, 0)
     } else {
-      // For VORONOI, GRID, REELS, TREEMAP, PATH, etc.
-      // We calculate the center based on the resulting bounding box
       const bounds = container.getLocalBounds()
       container.pivot.set(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2)
     }
 
-    // Update targets and handle fall animation for new items
+    // --- MASKING / CLIPPING LOGIC ---
+    if (options.layoutName === layoutEnum.REEL_SPINNER) {
+      if (!maskRef.current) {
+        maskRef.current = new PIXI.Graphics()
+        app.stage.addChild(maskRef.current)
+        container.mask = maskRef.current
+      }
+
+      const m = maskRef.current
+      const winW = options.width || 200
+      const winH = options.height || 400
+
+      m.clear()
+        .rect(-winW / 2, -winH / 2, winW, winH)
+        .fill(0xffffff)
+
+      // Keep mask aligned with container screen position
+      m.position.set(container.x, container.y)
+    } else {
+      // Clean up mask if switching to other layouts
+      if (maskRef.current) {
+        container.mask = null
+        maskRef.current.destroy()
+        maskRef.current = null
+      }
+    }
+
+    // Update Targets for Animation
     componentsRef.current.forEach((c) => {
       const destX = c.x
       const destY = c.y
@@ -197,6 +232,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
     })
   }
 
+  // 5. Watch for option changes
   useEffect(() => {
     if (!isPixiReady) return
 
@@ -227,6 +263,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
 
     applyCurrentLayout()
 
+    // Event Handlers for Symbol Popping / Avalanche
     const handlePop = () => {
       if (componentsRef.current.length === 0) return
       const idx = Math.floor(Math.random() * componentsRef.current.length)
@@ -246,6 +283,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
     const onResize = () => applyCurrentLayout()
     window.addEventListener('pop-symbol', handlePop)
     window.addEventListener('resize', onResize)
+
     return () => {
       window.removeEventListener('pop-symbol', handlePop)
       window.removeEventListener('resize', onResize)

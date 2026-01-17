@@ -1,10 +1,10 @@
 'use client'
 
-import {useState} from 'react'
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import {LayoutController} from '@/components/LayoutController'
-import {LayoutOptions} from '@/lib/layoutEngine'
-import {layoutEnum} from 'pixi-layout-engine'
+import { LayoutController } from '@/components/LayoutController'
+import { LayoutOptions } from '@/lib/layoutEngine'
+import { layoutEnum } from 'pixi-layout-engine'
 
 const PixiCanvas = dynamic(() => import('@/components/PixiCanvas').then((mod) => mod.PixiCanvas), {
   ssr: false,
@@ -61,6 +61,9 @@ export default function Home() {
       { name: 'side_bet_1', bounds: { x: -400, y: -200, width: 190, height: 80 } },
       { name: 'side_bet_2', bounds: { x: 200, y: -200, width: 190, height: 80 } },
     ],
+    sortBy: null,
+    spinDegrees: 0,
+    itemAngleStep: 30,
   })
 
   return (
