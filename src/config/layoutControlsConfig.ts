@@ -33,6 +33,7 @@ interface LayoutControlConfig {
   usesReverse?: boolean
   usesAngleControls?: boolean
   usesCornerOffset?: boolean
+  isReels?: boolean
 }
 
 export const layoutControlsConfig: Record<LayoutName, LayoutControlConfig> = {
@@ -148,6 +149,14 @@ export const layoutControlsConfig: Record<LayoutName, LayoutControlConfig> = {
     isPyramid: true,
     usesSizing: true,
   },
+  [layoutEnum.REELS]: {
+    usesColumns: true,
+    usesGapSpacing: true,
+    usesSizing: true,
+    usesAlignItems: true, // Used for Top vs Bottom gravity
+    usesJustifyItems: true, // Horizontal alignment in reel
+    isReels: true,
+  },
 }
 
 export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLayoutOptions)[]> = {
@@ -229,4 +238,5 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
   ],
   usesReverse: ['isReversed'],
   usesCornerOffset: ['cornerOffset'],
+  isReels: ['stagger'],
 }

@@ -13,4 +13,6 @@ export interface LayoutOptions extends LO {
   enableZIndex?: boolean
   globalRotation?: number;
   maxScale?: number;
+  stagger?: number;
+  refill?: boolean;
 }

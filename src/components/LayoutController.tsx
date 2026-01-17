@@ -1,44 +1,45 @@
 'use client'
 
-import React, {useMemo} from 'react'
-import {layoutEnum, LayoutName} from 'pixi-layout-engine'
-import {LayoutOptions} from '@/lib/layoutEngine'
-import {LayoutHelp} from './LayoutHelp'
-import {controlKeyMap, layoutControlsConfig} from '@/config/layoutControlsConfig'
-import {GapSpacingControl} from '@/components/layout-controls/GapSpacingControl'
-import {SimpleSpacingControl} from '@/components/layout-controls/SimpleSpacingControl'
-import {AlignItemsControl} from '@/components/layout-controls/AlignItemsControl'
-import {JustifyItemsControl} from '@/components/layout-controls/JustifyItemsControl'
-import {SizingControl} from './layout-controls/SizingControl'
-import {JustifyContentControl} from '@/components/layout-controls/JustifyContentControl'
-import {GridFlowControl} from '@/components/layout-controls/GridFlowControl'
-import {CircleControl} from '@/components/layout-controls/CircleControl'
-import {ColumnsControl} from '@/components/layout-controls/ColumnsControl'
-import {DiagonalControl} from '@/components/layout-controls/DiagonalControl'
-import {PathControl} from '@/components/layout-controls/PathControl'
-import {LayoutTypeControl} from '@/components/layout-controls/LayoutTypeControl'
-import {ComponentCountControl} from '@/components/layout-controls/ComponentCountControl'
-import {PerimeterControl} from '@/components/layout-controls/PerimeterControl'
-import {FlexWrapControl} from '@/components/layout-controls/FlexWrapControl'
-import {WaveControl} from '@/components/layout-controls/WaveControl'
-import {SpiralControl} from '@/components/layout-controls/SpiralControl'
-import {PerspectiveControl} from '@/components/layout-controls/PerspectiveControl'
-import {IsometricControl} from '@/components/layout-controls/IsometricControl'
-import {TreemapControl} from '@/components/layout-controls/TreemapControl'
-import {BubbleControl} from '@/components/layout-controls/BubbleControl'
-import {VoronoiControl} from '@/components/layout-controls/VoronoiControl'
-import {WordCloudControl} from '@/components/layout-controls/WordCloudControl'
-import {CurrentConfigDisplay} from '@/components/layout-controls/CurrentConfigDisplay'
-import {GridSpanningControl} from './layout-controls/GridSpanningControl'
-import {GridDemoSpanningControl} from '@/components/layout-controls/GridDemoSpanningControl'
-import {CirclePackControl} from '@/components/layout-controls/CirclePackControl'
-import {CardHandControl} from '@/components/layout-controls/CardHandControl'
-import {StackControl} from '@/components/layout-controls/StackControl'
-import {PayoutZonesControl} from '@/components/layout-controls/PayoutZonesControl'
-import {SpreadExplosionControl} from '@/components/layout-controls/SpreadExplosionControl'
-import {PyramidControl} from '@/components/layout-controls/PyramidControl'
-import {ReverseControl} from '@/components/layout-controls/ReverseControl'
-import {CornerOffsetControl} from '@/components/layout-controls/CornerOffsetControl'
+import React, { useMemo } from 'react'
+import { layoutEnum, LayoutName } from 'pixi-layout-engine'
+import { LayoutOptions } from '@/lib/layoutEngine'
+import { LayoutHelp } from './LayoutHelp'
+import { controlKeyMap, layoutControlsConfig } from '@/config/layoutControlsConfig'
+import { GapSpacingControl } from '@/components/layout-controls/GapSpacingControl'
+import { SimpleSpacingControl } from '@/components/layout-controls/SimpleSpacingControl'
+import { AlignItemsControl } from '@/components/layout-controls/AlignItemsControl'
+import { JustifyItemsControl } from '@/components/layout-controls/JustifyItemsControl'
+import { SizingControl } from './layout-controls/SizingControl'
+import { JustifyContentControl } from '@/components/layout-controls/JustifyContentControl'
+import { GridFlowControl } from '@/components/layout-controls/GridFlowControl'
+import { CircleControl } from '@/components/layout-controls/CircleControl'
+import { ColumnsControl } from '@/components/layout-controls/ColumnsControl'
+import { DiagonalControl } from '@/components/layout-controls/DiagonalControl'
+import { PathControl } from '@/components/layout-controls/PathControl'
+import { LayoutTypeControl } from '@/components/layout-controls/LayoutTypeControl'
+import { ComponentCountControl } from '@/components/layout-controls/ComponentCountControl'
+import { PerimeterControl } from '@/components/layout-controls/PerimeterControl'
+import { FlexWrapControl } from '@/components/layout-controls/FlexWrapControl'
+import { WaveControl } from '@/components/layout-controls/WaveControl'
+import { SpiralControl } from '@/components/layout-controls/SpiralControl'
+import { PerspectiveControl } from '@/components/layout-controls/PerspectiveControl'
+import { IsometricControl } from '@/components/layout-controls/IsometricControl'
+import { TreemapControl } from '@/components/layout-controls/TreemapControl'
+import { BubbleControl } from '@/components/layout-controls/BubbleControl'
+import { VoronoiControl } from '@/components/layout-controls/VoronoiControl'
+import { WordCloudControl } from '@/components/layout-controls/WordCloudControl'
+import { CurrentConfigDisplay } from '@/components/layout-controls/CurrentConfigDisplay'
+import { GridSpanningControl } from './layout-controls/GridSpanningControl'
+import { GridDemoSpanningControl } from '@/components/layout-controls/GridDemoSpanningControl'
+import { CirclePackControl } from '@/components/layout-controls/CirclePackControl'
+import { CardHandControl } from '@/components/layout-controls/CardHandControl'
+import { StackControl } from '@/components/layout-controls/StackControl'
+import { PayoutZonesControl } from '@/components/layout-controls/PayoutZonesControl'
+import { SpreadExplosionControl } from '@/components/layout-controls/SpreadExplosionControl'
+import { PyramidControl } from '@/components/layout-controls/PyramidControl'
+import { ReverseControl } from '@/components/layout-controls/ReverseControl'
+import { CornerOffsetControl } from '@/components/layout-controls/CornerOffsetControl'
+import { ReelsControl } from './layout-controls/ReelsControl'
 
 export type ExtendedLayoutOptions = LayoutOptions & {
   componentCount?: number
@@ -157,6 +158,39 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
       {config.isPayoutZones && <PayoutZonesControl options={options} onOptionChange={handleOptionChange} />}
       {config.isVoronoi && <VoronoiControl options={options} onNumberChange={handleNumberChange} />}
       {config.isWordCloud && <WordCloudControl options={options} onNumberChange={handleNumberChange} />}
+
+      {config.isReels && <ReelsControl options={options} onNumberChange={handleNumberChange} />}
+
+      <>
+        <div className="control-group">
+          <h4>Gravity Test</h4>
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('pop-symbol'))}
+            style={{
+              padding: '8px',
+              background: '#e06c75',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
+            💥 Pop Random Symbol
+          </button>
+          <p className="control-note">Removes a symbol to see others fall down.</p>
+        </div>
+
+        <div className="control-group">
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={!!options.refill}
+              onChange={(e) => handleOptionChange('refill', e.target.checked)}
+            />
+            Refill Symbols (Avalanche)
+          </label>
+        </div>
+      </>
 
       <CurrentConfigDisplay config={relevantOptions} />
     </div>

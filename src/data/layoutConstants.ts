@@ -1,4 +1,4 @@
-import {layoutEnum} from 'pixi-layout-engine'
+import { layoutEnum } from 'pixi-layout-engine'
 
 export interface HelpContent {
   title: string
@@ -285,6 +285,17 @@ export const layoutHelpData: Record<string, HelpContent> = {
       "Partitions the space into unique, cellular polygons based on the components' initial positions, then centers each component within its cell. Requires an external library (like d3-delaunay).",
     settings: {
       'Width/Height': 'The dimensions of the area to be partitioned.',
+    },
+  },
+  [layoutEnum.REELS]: {
+    title: 'Casino Reels',
+    description:
+      'Simulates slot machine reels with gravity. Items are grouped into columns. If an item is removed, items above it "fall" down.',
+    settings: {
+      Columns: 'Number of reels.',
+      'Align Items': 'Set to "End" for gravity (items fall to bottom), "Start" for top-down.',
+      Stagger: 'Vertical offset per column for a classic slot machine look.',
+      'Gap Spacing': 'Space between symbols and between reels.',
     },
   },
 }
