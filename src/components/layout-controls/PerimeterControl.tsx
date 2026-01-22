@@ -2,6 +2,7 @@ import React from 'react'
 
 type PerimeterOptions = {
   prioritizeCorners?: boolean
+  excludeCorners?: boolean
   startCorner?: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left'
   direction?: 'clockwise' | 'counter-clockwise'
   distribution?: 'even' | 'packed'
