@@ -69,6 +69,8 @@ export const layoutHelpData: Record<string, HelpContent> = {
         "Sorts items and places the highest/lowest values in the corners first. Can be a property name (like 'value') or a function. Requires 'Prioritize Corners'.",
       Offset: 'Pushes items outwards (positive) or inwards (negative) from the perimeter path.',
       Rotation: "Automatically rotates items to `face-inward` or `face-outward` from the grid's center.",
+      'Exclude Corners':
+        'If checked, the four corner cells of the grid will be left empty, and items will only be placed along the edges between them.',
     },
   },
   [layoutEnum.FLEX_WRAP]: {

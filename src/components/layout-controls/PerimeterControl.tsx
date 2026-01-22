@@ -27,6 +27,29 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
         <label className="checkbox-label">
           <input
             type="checkbox"
+            checked={!!options.excludeCorners}
+            onChange={(e) => onOptionChange('excludeCorners', e.target.checked)}
+          />
+          Exclude Corners
+        </label>
+
+        {/* Only show prioritize corners if excludeCorners is false */}
+        {!options.excludeCorners && (
+          <label className="checkbox-label" style={{ marginTop: '8px' }}>
+            <input
+              type="checkbox"
+              checked={!!options.prioritizeCorners}
+              onChange={(e) => onOptionChange('prioritizeCorners', e.target.checked)}
+            />
+            Prioritize Corners
+          </label>
+        )}
+      </div>
+
+      <div className="control-group">
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
             id="auto-rows-checkbox"
             checked={!!options.autoRows}
             onChange={(e) => onOptionChange('autoRows', e.target.checked)}

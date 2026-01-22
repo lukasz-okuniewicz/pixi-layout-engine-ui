@@ -18,4 +18,5 @@ export interface LayoutOptions extends LO {
   spinDegrees?: number;
   itemAngleStep?: number;
   perspective?: number;
+  excludeCorners?: boolean;
 }
