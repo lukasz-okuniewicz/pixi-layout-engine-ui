@@ -39,6 +39,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
     const init = async () => {
       if (!canvasRef.current) return
       const app = new PIXI.Application()
+      globalThis.__PIXI_APP__ = app
       await app.init({ resizeTo: window, background: '#2c3e50', antialias: true })
 
       if (isCancelled) {
@@ -169,7 +170,9 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
       layoutEnum.BUBBLE,
       layoutEnum.WORD_CLOUD,
       layoutEnum.CIRCLE_PACK,
-      layoutEnum.REEL_SPINNER, // Added REEL_SPINNER here to keep centering stable
+      layoutEnum.ORBIT,
+      layoutEnum.DNA,
+      layoutEnum.REEL_SPINNER,
     ]
 
     if (originCenteredLayouts.includes(options.layoutName as any)) {
@@ -215,13 +218,8 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
       if (c.isNew) {
         c.targetX = destX
         c.targetY = destY
-        if (options.layoutName === layoutEnum.REELS) {
-          c.x = destX
-          c.y = destY - 1000
-        } else {
-          c.x = destX
-          c.y = destY
-        }
+        c.x = destX
+        c.y = destY
         c.isNew = false
       } else if (start) {
         c.targetX = destX

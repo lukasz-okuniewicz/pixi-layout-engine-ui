@@ -39,7 +39,8 @@ import { SpreadExplosionControl } from '@/components/layout-controls/SpreadExplo
 import { PyramidControl } from '@/components/layout-controls/PyramidControl'
 import { ReverseControl } from '@/components/layout-controls/ReverseControl'
 import { CornerOffsetControl } from '@/components/layout-controls/CornerOffsetControl'
-import { ReelsControl } from './layout-controls/ReelsControl'
+import { DnaControl } from '@/components/layout-controls/DnaControl'
+import { OrbitControl } from '@/components/layout-controls/OrbitControl'
 import { ReelSpinnerControl } from '@/components/layout-controls/ReelSpinnerControl'
 
 export type ExtendedLayoutOptions = LayoutOptions & {
@@ -66,7 +67,7 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
     handleOptionChange(key, isNaN(num) ? undefined : num)
   }
 
-  const config = options.layoutName ? layoutControlsConfig[options.layoutName as LayoutName] : {}
+  const config = (options.layoutName ? layoutControlsConfig[options.layoutName as LayoutName] : undefined) ?? {}
   const isHoneycombFlow = options.layoutName === layoutEnum.SQUARE && options.flowDirection === 'honeycomb'
 
   const relevantOptions = useMemo(() => {
@@ -160,8 +161,20 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
       {config.isVoronoi && <VoronoiControl options={options} onNumberChange={handleNumberChange} />}
       {config.isWordCloud && <WordCloudControl options={options} onNumberChange={handleNumberChange} />}
 
-      {config.isReels && <ReelsControl options={options} onNumberChange={handleNumberChange} />}
-
+      {config.isOrbit && (
+        <OrbitControl
+          options={options}
+          onNumberChange={handleNumberChange}
+          onOptionChange={handleOptionChange}
+        />
+      )}
+      {config.isDna && (
+        <DnaControl
+          options={options}
+          onNumberChange={handleNumberChange}
+          onOptionChange={handleOptionChange}
+        />
+      )}
       {config.isReelSpinner && <ReelSpinnerControl options={options} onNumberChange={handleNumberChange} />}
 
       <>

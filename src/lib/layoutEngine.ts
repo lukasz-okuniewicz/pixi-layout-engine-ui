@@ -19,4 +19,9 @@ export interface LayoutOptions extends LO {
   itemAngleStep?: number;
   perspective?: number;
   excludeCorners?: boolean;
+  orbitCount?: number;
+  orbitSpacing?: number;
+  orbitPhase?: number;
+  dnaPitch?: number;
+  dnaTwist?: number;
 }

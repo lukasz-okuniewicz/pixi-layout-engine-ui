@@ -289,15 +289,29 @@ export const layoutHelpData: Record<string, HelpContent> = {
       'Width/Height': 'The dimensions of the area to be partitioned.',
     },
   },
-  [layoutEnum.REELS]: {
-    title: 'Casino Reels',
+  [layoutEnum.ORBIT]: {
+    title: 'Orbit Layout',
     description:
-      'Simulates slot machine reels with gravity. Items are grouped into columns. If an item is removed, items above it "fall" down.',
+      'Arranges items on concentric circular orbits (rings), like a solar system. Items are distributed round-robin across orbits. Each orbit is staggered by the phase for a balanced look. Great for character select, power-ups, or orbital menus.',
     settings: {
-      Columns: 'Number of reels.',
-      'Align Items': 'Set to "End" for gravity (items fall to bottom), "Start" for top-down.',
-      Stagger: 'Vertical offset per column for a classic slot machine look.',
-      'Gap Spacing': 'Space between symbols and between reels.',
+      Radius: 'The radius of the innermost orbit.',
+      'Orbit Count': 'Number of concentric rings.',
+      'Orbit Spacing': 'Radial distance between each orbit.',
+      'Orbit Phase': 'Angular offset in degrees added per orbit to stagger items. Default is 360° ÷ orbit count.',
+      'Start Angle': 'Where the first item on the inner orbit is placed (degrees).',
+      'Rotate to Center': 'Rotates each item to point toward the center.',
+    },
+  },
+  [layoutEnum.DNA]: {
+    title: 'DNA (Double Helix) Layout',
+    description:
+      'Arranges items in two intertwining strands, like a DNA double helix. Items alternate between the two strands; each "rung" has one item on each side at the same height. The strands twist as they run vertically. Great for pairs, connections, or a sci‑fi look.',
+    settings: {
+      Radius: 'Distance of each strand from the centerline.',
+      Pitch: 'Vertical distance between rungs (pairs of items).',
+      Twist: 'Degrees of rotation per rung—how tightly the helix winds. 360° = one full twist per rung.',
+      'Start Angle': 'Initial rotation of the helix (degrees).',
+      'Rotate to Center': 'Rotates each item to point toward the centerline.',
     },
   },
   [layoutEnum.REEL_SPINNER]: {
