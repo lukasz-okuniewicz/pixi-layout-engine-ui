@@ -3,6 +3,7 @@ import React from 'react'
 type PerimeterOptions = {
   prioritizeCorners?: boolean
   excludeCorners?: boolean
+  equalDistribution?: boolean
   startCorner?: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left'
   direction?: 'clockwise' | 'counter-clockwise'
   distribution?: 'even' | 'packed'
@@ -14,6 +15,8 @@ type PerimeterOptions = {
   perspectiveY?: number
   depthScale?: number
   enableZIndex?: boolean
+  priorityDirection?: 'columns' | 'rows'
+  overflowAlignment?: 'start' | 'center' | 'end' | 'justify-corners'
 }
 
 interface PerimeterControlProps<T extends PerimeterOptions> {
@@ -32,6 +35,15 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
             onChange={(e) => onOptionChange('excludeCorners', e.target.checked)}
           />
           Exclude Corners
+        </label>
+
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            checked={!!options.equalDistribution}
+            onChange={(e) => onOptionChange('equalDistribution', e.target.checked)}
+          />
+          Equal Distribution
         </label>
 
         {/* Only show prioritize corners if excludeCorners is false */}
@@ -71,6 +83,30 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
           />
         </div>
       )}
+
+      <div className="control-group">
+        <label>Priority Direction</label>
+        <select
+          value={options.priorityDirection || 'columns'}
+          onChange={(e) => onOptionChange('priorityDirection', e.target.value)}
+        >
+          <option value="columns">Columns (Fill width first)</option>
+          <option value="rows">Rows (Fill height first)</option>
+        </select>
+      </div>
+
+      <div className="control-group">
+        <label>Overflow Alignment</label>
+        <select
+          value={options.overflowAlignment || 'start'}
+          onChange={(e) => onOptionChange('overflowAlignment', e.target.value)}
+        >
+          <option value="start">Start</option>
+          <option value="center">Center</option>
+          <option value="end">End</option>
+          <option value="justify-corners">Justify Corners</option>
+        </select>
+      </div>
 
       <div
         className="control-group full-width"
