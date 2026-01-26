@@ -1,28 +1,30 @@
 import React from 'react'
 
-type PerimeterOptions = {
-  excludeCorners?: boolean
-  equalDistribution?: boolean
-  startCorner?: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left'
-  direction?: 'clockwise' | 'counter-clockwise'
-  offset?: number
-  rows?: number
-  autoRows?: boolean
-  globalRotation?: number
-  perspectiveY?: number
-  depthScale?: number
-  enableZIndex?: boolean
-  priorityDirection?: 'columns' | 'rows'
-  overflowAlignment?: 'start' | 'center' | 'end' | 'justify-corners'
-  cornerOffset?: number
+// Define the keys that THIS component specifically handles
+type PerimeterKey =
+    | 'excludeCorners' | 'equalDistribution' | 'startCorner'
+    | 'direction' | 'offset' | 'rows' | 'autoRows'
+    | 'globalRotation' | 'perspectiveY' | 'depthScale'
+    | 'enableZIndex' | 'priorityDirection' | 'overflowAlignment'
+    | 'cornerOffset';
+
+interface PerimeterControlProps<T> {
+  options: T;
+  // This allows the function to accept any key that exists in T
+  onOptionChange: (key: keyof T, value: any) => void;
 }
 
-interface PerimeterControlProps<T extends PerimeterOptions> {
-  options: T
-  onOptionChange: (key: keyof T, value: string | number | boolean) => void
-}
+// We use <T extends Record<string, any>> to allow any object shape
+export const PerimeterControl = <T extends Record<string, any>>({
+                                                                  options,
+                                                                  onOptionChange
+                                                                }: PerimeterControlProps<T>) => {
 
-export const PerimeterControl = <T extends PerimeterOptions>({ options, onOptionChange }: PerimeterControlProps<T>) => {
+  // Helper to cast keys correctly for the change handler
+  const handleChange = (key: PerimeterKey, value: any) => {
+    onOptionChange(key as unknown as keyof T, value);
+  };
+
   return (
       <div className="control-group-grid">
         {/* 1. Path & Sequencing */}
@@ -33,7 +35,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
               <label>Start Corner</label>
               <select
                   value={options.startCorner || 'top-left'}
-                  onChange={(e) => onOptionChange('startCorner', e.target.value)}
+                  onChange={(e) => handleChange('startCorner', e.target.value)}
               >
                 <option value="top-left">Top Left</option>
                 <option value="top-right">Top Right</option>
@@ -44,8 +46,10 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
             <div>
               <label>Sequence Direction</label>
               <select
-                  value={options.direction || 'clockwise'}
-                  onChange={(e) => onOptionChange('direction', e.target.value)}
+                  value={(options.direction === 'clockwise' || options.direction === 'counter-clockwise')
+                      ? options.direction
+                      : 'clockwise'}
+                  onChange={(e) => handleChange('direction', e.target.value)}
               >
                 <option value="clockwise">Clockwise</option>
                 <option value="counter-clockwise">Counter-Clockwise</option>
@@ -60,7 +64,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
             <input
                 type="checkbox"
                 checked={!!options.autoRows}
-                onChange={(e) => onOptionChange('autoRows', e.target.checked)}
+                onChange={(e) => handleChange('autoRows', e.target.checked)}
             />
             Auto-Calculate Rows
           </label>
@@ -73,7 +77,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
                     min="1"
                     max="20"
                     value={options.rows || 3}
-                    onChange={(e) => onOptionChange('rows', parseInt(e.target.value))}
+                    onChange={(e) => handleChange('rows', parseInt(e.target.value))}
                 />
               </div>
           )}
@@ -84,7 +88,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
           <label>Priority Edge</label>
           <select
               value={options.priorityDirection || 'columns'}
-              onChange={(e) => onOptionChange('priorityDirection', e.target.value)}
+              onChange={(e) => handleChange('priorityDirection', e.target.value)}
           >
             <option value="columns">Columns (Top/Bottom fill first)</option>
             <option value="rows">Rows (Left/Right fill first)</option>
@@ -93,7 +97,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
           <label style={{ marginTop: '10px' }}>Overflow Alignment</label>
           <select
               value={options.overflowAlignment || 'start'}
-              onChange={(e) => onOptionChange('overflowAlignment', e.target.value)}
+              onChange={(e) => handleChange('overflowAlignment', e.target.value)}
           >
             <option value="start">Start</option>
             <option value="center">Center</option>
@@ -105,7 +109,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
             <input
                 type="checkbox"
                 checked={!!options.equalDistribution}
-                onChange={(e) => onOptionChange('equalDistribution', e.target.checked)}
+                onChange={(e) => handleChange('equalDistribution', e.target.checked)}
             />
             Equal Distribution
           </label>
@@ -114,7 +118,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
             <input
                 type="checkbox"
                 checked={!!options.excludeCorners}
-                onChange={(e) => onOptionChange('excludeCorners', e.target.checked)}
+                onChange={(e) => handleChange('excludeCorners', e.target.checked)}
             />
             Exclude Corners
           </label>
@@ -128,7 +132,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
               min="-200"
               max="200"
               value={options.offset || 0}
-              onChange={(e) => onOptionChange('offset', parseFloat(e.target.value))}
+              onChange={(e) => handleChange('offset', parseFloat(e.target.value))}
           />
 
           <label style={{ marginTop: '10px' }}>Corner Push-out ({options.cornerOffset || 0})</label>
@@ -137,48 +141,40 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
               min="-100"
               max="100"
               value={options.cornerOffset || 0}
-              onChange={(e) => onOptionChange('cornerOffset', parseFloat(e.target.value))}
+              onChange={(e) => handleChange('cornerOffset', parseFloat(e.target.value))}
           />
         </div>
 
         {/* 5. 3D Perspective */}
-        <div
-            className="control-group full-width"
-            style={{ marginTop: '1rem', borderTop: '1px solid #444', paddingTop: '1rem' }}
-        >
+        <div className="control-group full-width" style={{ marginTop: '1rem', borderTop: '1px solid #444', paddingTop: '1rem' }}>
           <h4>3D Perspective</h4>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-            <div>
-              <label>Global Rotation ({options.globalRotation || 0}°)</label>
+            <div className="control-group">
+              <label>Rotation ({options.globalRotation || 0}°)</label>
               <input
                   type="range"
                   min="0"
                   max="360"
                   value={options.globalRotation || 0}
-                  onChange={(e) => onOptionChange('globalRotation', parseFloat(e.target.value))}
+                  onChange={(e) => handleChange('globalRotation', parseFloat(e.target.value))}
               />
-
               <label className="checkbox-label" style={{ marginTop: 15 }}>
                 <input
                     type="checkbox"
                     checked={!!options.enableZIndex}
-                    onChange={(e) => onOptionChange('enableZIndex', e.target.checked)}
+                    onChange={(e) => handleChange('enableZIndex', e.target.checked)}
                 />
                 Enable Z-Sorting
               </label>
-            </div>
-
             <div>
-              <label>Perspective Tilt ({options.perspectiveY ?? 1})</label>
+              <label>Tilt ({options.perspectiveY ?? 1})</label>
               <input
                   type="range"
                   min="0.1"
                   max="1.5"
                   step="0.05"
                   value={options.perspectiveY ?? 1}
-                  onChange={(e) => onOptionChange('perspectiveY', parseFloat(e.target.value))}
+                  onChange={(e) => handleChange('perspectiveY', parseFloat(e.target.value))}
               />
-
               <label style={{ marginTop: 10 }}>Depth Scale ({options.depthScale ?? 0})</label>
               <input
                   type="range"
@@ -186,7 +182,7 @@ export const PerimeterControl = <T extends PerimeterOptions>({ options, onOption
                   max="1"
                   step="0.05"
                   value={options.depthScale ?? 0}
-                  onChange={(e) => onOptionChange('depthScale', parseFloat(e.target.value))}
+                  onChange={(e) => handleChange('depthScale', parseFloat(e.target.value))}
               />
             </div>
           </div>
