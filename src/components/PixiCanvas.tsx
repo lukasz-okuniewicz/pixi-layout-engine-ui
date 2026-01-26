@@ -39,6 +39,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
     const init = async () => {
       if (!canvasRef.current) return
       const app = new PIXI.Application()
+      // @ts-ignore
       globalThis.__PIXI_APP__ = app
       await app.init({ resizeTo: window, background: '#2c3e50', antialias: true })
 
