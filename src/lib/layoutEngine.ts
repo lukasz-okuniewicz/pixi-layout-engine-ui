@@ -24,7 +24,7 @@ export interface LayoutOptions extends LO {
   orbitPhase?: number;
   dnaPitch?: number;
   dnaTwist?: number;
-  direction?: 'clockwise' | 'counter-clockwise';
+  direction?: 'up' | 'down' | 'left' | 'right' | 'clockwise' | 'counter-clockwise';
   priorityDirection?: 'columns' | 'rows';
   overflowAlignment?: 'start' | 'center' | 'end' | 'justify-corners';
   equalDistribution?: boolean;
