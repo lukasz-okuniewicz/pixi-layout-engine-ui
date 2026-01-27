@@ -39,6 +39,17 @@ export const layoutHelpData: Record<string, HelpContent> = {
         'Switches to an advanced mode where components can use `colSpan` and `rowSpan` properties. Most complex flow directions do not apply in this mode.',
       'Corner Offset':
         'Explodes (positive values) or tucks in (negative values) the items at the four corners of the grid. Useful for creating rounded grid appearances or stylistic breaks.',
+      'Flow Direction Details': `
+      • Gravity Fill: Items ripple out from a focal point (center, top-left, etc.).
+      • Corner Converge: Items fill from all four corners simultaneously toward the center.
+      • Symmetric Outward: Fills the center row first, then expands to rows above and below.
+      • Boustrophedon: A 'snake' flow that also flips the item horizontally (scaleX) on reversed rows.
+      • Hilbert Curve & Z-Order: Mathematical space-filling curves that maintain spatial locality.
+      • Clustered Fill: Uses the 'group' property on components to partition the grid into zones.
+      • Interlaced: Fills like a checkerboard (all 'black' cells, then all 'white' cells).
+      • Random Walk: Items follow a random contiguous path through the grid.
+      • Diamond Fill: Only places items within a diamond-shaped mask.
+      `
     },
   },
   [layoutEnum.MASONRY]: {
@@ -120,6 +131,10 @@ export const layoutHelpData: Record<string, HelpContent> = {
         "Adds a random amount to each component's distance from the center, creating a more organic, less perfect look.",
       'Angle Jitter':
         "Adds a random amount to each component's angle on the circle, making the distribution appear less uniform.",
+      'Perspective Y (Tilt)': 'Squashes the circle vertically (e.g., 0.5) to create a 3D "disk" or "ring" look.',
+      'Global Rotation': 'Rotates the entire circular arrangement around the center point.',
+      'Depth Scale': 'Dynamically scales items based on their "depth" (Y-position). Items at the "back" of the circle shrink, while items at the "front" stay at Max Scale.',
+      'Enable Z-Sorting': 'Automatically manages the z-index of components so that items in the "front" of the tilted circle appear above items in the "back".'
     },
   },
   [layoutEnum.SPIRAL]: {
@@ -324,6 +339,7 @@ export const layoutHelpData: Record<string, HelpContent> = {
       Radius: 'The depth of the drum.',
       'Item Angle Step': 'Degrees of separation between items on the cylinder face.',
       'Depth Scale': 'How much items shrink as they rotate towards the top/bottom edges.',
+      'Vertical / Horizontal': 'Toggle between a standard vertical drum (like a slot machine) or a horizontal drum (like a horizontal carousel/conveyor).',
     },
   },
 }
