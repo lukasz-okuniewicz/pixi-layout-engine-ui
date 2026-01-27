@@ -217,6 +217,11 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
     'enableZIndex',
     'autoRows',
     'rows',
+    'direction',
+    'priorityDirection',
+    'overflowAlignment',
+    'equalDistribution',
+    'cornerOffset'
   ],
   isWave: ['amplitude', 'frequency'],
   isSpiral: ['separation', 'tightness'],
