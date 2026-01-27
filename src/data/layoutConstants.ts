@@ -54,23 +54,24 @@ export const layoutHelpData: Record<string, HelpContent> = {
   [layoutEnum.PERIMETER_GRID]: {
     title: 'Perimeter Grid Layout',
     description:
-      'Arranges components along the outer edge of a rectangular grid. Highly customizable for creating borders, frames, or game board tracks.',
+        'Arranges components along the outer edge (perimeter) of a defined rectangular grid. Features sophisticated logic for balancing items across edges, handling incomplete perimeters, and projecting the layout into 2.5D space with 3D perspective.',
     settings: {
-      Columns: 'The number of columns in the grid that defines the perimeter path.',
-      Rows: 'The number of rows in the grid. This is ignored if `Auto Rows` is checked.',
-      'Auto Rows':
-        'If checked, automatically calculates the optimal number of rows to fit all items based on the column count.',
-      'Start Corner': 'The corner where the layout begins.',
-      Direction: 'The direction items are placed around the perimeter (clockwise or counter-clockwise).',
-      Distribution:
-        '`Even` spreads items to use the whole perimeter. `Packed` places them sequentially from the start point.',
-      'Prioritize Corners': 'Places the first items at the four corners. Can be combined with sorting.',
-      'Sort Corners By':
-        "Sorts items and places the highest/lowest values in the corners first. Can be a property name (like 'value') or a function. Requires 'Prioritize Corners'.",
-      Offset: 'Pushes items outwards (positive) or inwards (negative) from the perimeter path.',
-      Rotation: "Automatically rotates items to `face-inward` or `face-outward` from the grid's center.",
+      'Columns / Rows': 'Defines the width and height of the grid. If `Auto Rows` is checked, the height is calculated automatically to fit the number of items.',
+      'Start Corner': 'The specific corner cell where the layout sequence begins.',
+      'Sequence Direction': 'Determines the path of the layout: `Clockwise` or `Counter-Clockwise`.',
+      'Priority Edge':
+          'Determines which edges are filled first. `Columns` fills the top and bottom edges first; `Rows` fills the left and right edges first. This is most visible when there are not enough items to complete a full circuit.',
+      'Overflow Alignment':
+          'Controls how items are positioned within their assigned edge. `Start/End` packs items to one side, `Center` groups them in the middle, and `Justify Corners` stretches the items to touch the ends of the edge.',
+      'Equal Distribution':
+          'If enabled, the engine attempts to balance the number of items evenly across all four edges, regardless of edge length.',
       'Exclude Corners':
-        'If checked, the four corner cells of the grid will be left empty, and items will only be placed along the edges between them.',
+          'If checked, the four corner cells are left empty. Items are only placed on the straight edges between corners.',
+      'Radial Offset': 'Pushes all items outward (positive) or inward (negative) from the center of the grid.',
+      'Corner Push-out':
+          'Applies an extra offset specifically to items located in the four corner cells. Useful for creating "exploded" corners or stylistic flourishes.',
+      '3D Perspective':
+          'A suite of projection tools: `Rotation` spins the entire perimeter; `Tilt` (Perspective Y) squashes the layout for a 2.5D look; `Depth Scale` resizes items based on their Y position; and `Z-Sorting` manages the visual overlap of items.',
     },
   },
   [layoutEnum.FLEX_WRAP]: {
