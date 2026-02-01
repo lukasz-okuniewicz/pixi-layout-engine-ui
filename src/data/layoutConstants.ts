@@ -342,4 +342,166 @@ export const layoutHelpData: Record<string, HelpContent> = {
       'Vertical / Horizontal': 'Toggle between a standard vertical drum (like a slot machine) or a horizontal drum (like a horizontal carousel/conveyor).',
     },
   },
+  [layoutEnum.CONCENTRIC_RINGS]: {
+    title: 'Concentric Rings',
+    description:
+      'Objects arranged in multiple circular layers with an option to offset the rotation of each ring (Vault/Radar look).',
+    settings: {
+      Radius: 'Innermost ring radius.',
+      'Ring Count': 'Number of concentric rings.',
+      'Ring Spacing': 'Radial distance between rings.',
+      'Ring Phase': 'Angular offset in degrees per ring for stagger.',
+      'Start Angle': 'Where the first item on the inner ring is placed (degrees).',
+      'Rotate to Center': 'Rotates each item toward the center.',
+    },
+  },
+  [layoutEnum.SUNFLOWER]: {
+    title: 'Golden Ratio Sunflower (Fermat\'s Spiral)',
+    description:
+      'Phyllotaxis variation that packs circles of varying sizes (from value) without gaps using the golden angle.',
+    settings: {
+      Spacing: 'Base density; larger values spread items more.',
+      'Radius Scale': 'Multiplier for circle sizes derived from value.',
+    },
+  },
+  [layoutEnum.H_TREE]: {
+    title: 'Fractal H-Tree',
+    description:
+      'Recursive branching layout for tech-tree or organizational visualizations.',
+    settings: {
+      'Branching Factor': 'Children per node (2 = classic H).',
+      'H-Tree Depth': 'Recursion depth.',
+      'H-Tree Spacing': 'Distance between branches.',
+    },
+  },
+  [layoutEnum.FISHEYE]: {
+    title: 'Fisheye / Apple Dock',
+    description:
+      'Horizontal layout where the focus item is scaled up and spaced more; others shrink and pack.',
+    settings: {
+      'Focus Index': 'Index of the item at the focus (0-based).',
+      'Scale Factor': 'Max scale at focus (e.g. 1.5).',
+      'Spread Factor': 'Spacing multiplier at focus (e.g. 1.8).',
+    },
+  },
+  [layoutEnum.CIRCULAR_FAN]: {
+    title: 'Circular Fan (Card Hand)',
+    description:
+      'Items in an arc with controls for arc curvature and fan angle.',
+    settings: {
+      'Arc Radius': 'Distance from pivot to items.',
+      'Arc Angle': 'Total fan angle in degrees.',
+      'Fan Curvature': 'Curvature multiplier (1 = normal arc).',
+    },
+  },
+  [layoutEnum.PERSPECTIVE_STACK]: {
+    title: 'Perspective Stack (Cover Flow)',
+    description:
+      'Simulates 3D depth by scaling and skewing items away from the center.',
+    settings: {
+      'Center Index': 'Index of the front item.',
+      'Skew': 'Horizontal skew for depth effect.',
+      'Depth Scale': 'Scale factor per step away from center.',
+    },
+  },
+  [layoutEnum.CIRCLE_PACK_GROUPED]: {
+    title: 'Circle Packing (Grouped)',
+    description:
+      'Like bubble pack but items are clustered into islands by a category property.',
+    settings: {
+      'Category Property': 'Component property name for group (e.g. category).',
+      'Bounds Radius': 'Approximate island spread.',
+      Padding: 'Gap between circles.',
+      Iterations: 'Simulation steps.',
+      'Center Strength': 'Pull toward island center.',
+      'Radius Scale': 'Scale for value-based circle size.',
+    },
+  },
+  [layoutEnum.MEGAWAYS]: {
+    title: 'Megaways (Variable Grid)',
+    description:
+      'Variable reel layout where each column can have a different number of symbols. Symbols scale to fit the column height. Reel gap = horizontal; Symbol gap = vertical.',
+    settings: {
+      'Reel Heights': 'Number of symbols per reel (5–6 reels). Total symbol count is the sum.',
+      'Column Height': 'Fixed height per reel column; symbols scale to fit.',
+      'Reel gap / Symbol gap': 'Horizontal space between reels and vertical space between symbols.',
+    },
+  },
+  [layoutEnum.DIAMOND_REEL]: {
+    title: 'Diamond / Hexagonal Reel',
+    description:
+      'Staggered reel configuration (e.g. 3-4-5-4-3) for all-ways payout slots. Same reel/symbol gap controls.',
+    settings: {
+      'Reel Heights': 'Symbols per reel; default 3-4-5-4-3.',
+      'Reel gap / Symbol gap': 'Horizontal and vertical spacing.',
+    },
+  },
+  [layoutEnum.KENO_80_GRID]: {
+    title: 'Keno 80-Ball Grid',
+    description:
+      'Precise 8×10 or 10×8 grid for Keno-style games. Supports cell highlighting: specific indices can be visually offset (e.g. outward from center) to mark selected or winning numbers.',
+    settings: {
+      Columns: 'Number of columns (default 10 for 80-ball).',
+      Rows: 'Number of rows (default 8 for 80-ball).',
+      'Cell Highlight Indices': 'Array of 0-based indices to offset (e.g. [0, 5, 42]).',
+      'Cell Highlight Offset': 'Pixel offset applied to highlighted cells (e.g. outward from center).',
+    },
+  },
+  [layoutEnum.RADIAL_BALL_TUMBLER]: {
+    title: 'Radial Ball Tumbler',
+    description:
+      'Dense, slightly jittered circular cluster simulating balls in a lottery drum. Items are packed in a phyllotaxis pattern; Tumble Intensity adds random offset from the center.',
+    settings: {
+      Radius: 'Base radius of the cluster.',
+      'Tumble Intensity': 'Random jitter/offset in pixels from the nominal position. Higher = more chaotic drum look.',
+    },
+  },
+  [layoutEnum.PRIZE_LADDER]: {
+    title: 'Prize Ladder (Tower)',
+    description:
+      'Vertical layout where items get smaller and closer together toward the top, simulating a Jackpot Tower. Perspective Scale controls how much items shrink and converge.',
+    settings: {
+      'Perspective Scale': '0 = uniform size and spacing; 1 = strong perspective (top items much smaller and tighter).',
+      'Row Gap': 'Base vertical gap between items.',
+      'Item Spacing': 'Horizontal spacing when multiple items per tier.',
+    },
+  },
+  [layoutEnum.ROULETTE_BETTING_MAT]: {
+    title: 'Roulette Betting Mat',
+    description:
+      'Grid layout with spanning: a single item can span multiple rows (e.g. "2 to 1" bets) or cells. Uses a default slot template or optional rouletteSlots. Gap, sizing, and alignment apply to the grid.',
+    settings: {
+      'Column/Row Gap': 'Space between grid cells.',
+      'Sizing Mode': 'Auto uses largest child; Fixed uses set width/height per cell.',
+      'Align/Justify Items': 'Position items within their (possibly spanned) cell.',
+    },
+  },
+  [layoutEnum.SEMICIRCLE_SEATING]: {
+    title: 'Semicircle Player Seating',
+    description:
+      'Arranges items along the bottom half of an ellipse, facing a central dealer point. Table Curvature controls the ellipse aspect (vertical stretch). Items are rotated to face the center.',
+    settings: {
+      Radius: 'Horizontal radius of the ellipse.',
+      'Table Curvature': 'Ellipse vertical/horizontal ratio. 1 = semicircle; <1 = flatter; >1 = taller arc.',
+      'Start/End Angle': 'Arc extent in degrees (default 0–180 for bottom half).',
+      'Rotate to Center': 'Each item rotates to face the dealer (center).',
+    },
+  },
+  [layoutEnum.CHIP_STACK]: {
+    title: 'Chip Stack (3D Offset)',
+    description:
+      'Stacks items vertically with a small y offset and slight random x tilt to simulate a physical stack of chips. Z-index is set so the top chip renders last. Stack Leaning adds horizontal tilt per layer.',
+    settings: {
+      'Offset X/Y': 'Horizontal and vertical pixel offset per layer.',
+      'Stack Leaning': 'Horizontal tilt per chip in the stack (positive = lean right).',
+      'Tilt (°)': 'Random rotation range per chip for a natural look.',
+    },
+  },
+}
+
+export const keno80GridDefaults = {
+  columns: 10,
+  rows: 8,
+  columnGap: 4,
+  rowGap: 4,
 }

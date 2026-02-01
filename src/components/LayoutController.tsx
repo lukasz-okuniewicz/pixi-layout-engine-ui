@@ -42,6 +42,20 @@ import { CornerOffsetControl } from '@/components/layout-controls/CornerOffsetCo
 import { DnaControl } from '@/components/layout-controls/DnaControl'
 import { OrbitControl } from '@/components/layout-controls/OrbitControl'
 import { ReelSpinnerControl } from '@/components/layout-controls/ReelSpinnerControl'
+import { ConcentricRingsControl } from '@/components/layout-controls/ConcentricRingsControl'
+import { SunflowerControl } from '@/components/layout-controls/SunflowerControl'
+import { HTreeControl } from '@/components/layout-controls/HTreeControl'
+import { FisheyeControl } from '@/components/layout-controls/FisheyeControl'
+import { CircularFanControl } from '@/components/layout-controls/CircularFanControl'
+import { PerspectiveStackControl } from '@/components/layout-controls/PerspectiveStackControl'
+import { CirclePackGroupedControl } from '@/components/layout-controls/CirclePackGroupedControl'
+import { ReelHeightsControl } from '@/components/layout-controls/ReelHeightsControl'
+import { FixedColumnHeightControl } from '@/components/layout-controls/FixedColumnHeightControl'
+import { Keno80GridControl } from '@/components/layout-controls/Keno80GridControl'
+import { RadialBallTumblerControl } from '@/components/layout-controls/RadialBallTumblerControl'
+import { PrizeLadderControl } from '@/components/layout-controls/PrizeLadderControl'
+import { SemicircleSeatingControl } from '@/components/layout-controls/SemicircleSeatingControl'
+import { ChipStackControl } from '@/components/layout-controls/ChipStackControl'
 
 export type ExtendedLayoutOptions = LayoutOptions & {
   componentCount?: number
@@ -58,7 +72,10 @@ interface LayoutControllerProps {
 }
 
 export const LayoutController: React.FC<LayoutControllerProps> = ({ options, setOptions }) => {
-  const handleOptionChange = (key: keyof ExtendedLayoutOptions, value: string | number | boolean | undefined) => {
+  const handleOptionChange = (
+    key: keyof ExtendedLayoutOptions,
+    value: string | number | boolean | undefined | number[]
+  ) => {
     setOptions((prev) => ({ ...prev, [key]: value }))
   }
 
@@ -98,13 +115,21 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
     <div id="ui-panel">
       <LayoutTypeControl options={options} onOptionChange={handleOptionChange} />
       <LayoutHelp layoutName={options.layoutName || ''} />
-      <ComponentCountControl options={options} onNumberChange={handleNumberChange} />
+      {!config.usesReelHeights && (
+        <ComponentCountControl options={options} onNumberChange={handleNumberChange} />
+      )}
 
       {config.usesSizing && (
         <SizingControl options={options} onNumberChange={handleNumberChange} onOptionChange={handleOptionChange} />
       )}
       {config.usesSimpleSpacing && <SimpleSpacingControl options={options} onNumberChange={handleNumberChange} />}
-      {config.usesGapSpacing && <GapSpacingControl options={options} onNumberChange={handleNumberChange} />}
+      {config.usesGapSpacing && (
+        <GapSpacingControl
+          options={options}
+          onNumberChange={handleNumberChange}
+          slotLabels={!!config.usesReelHeights}
+        />
+      )}
 
       {config.usesAngleControls && <DiagonalControl options={options} onNumberChange={handleNumberChange} />}
 
@@ -176,6 +201,52 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
         />
       )}
       {config.isReelSpinner && <ReelSpinnerControl options={options} onNumberChange={handleNumberChange} />}
+      {config.isConcentricRings && (
+        <ConcentricRingsControl
+          options={options}
+          onNumberChange={handleNumberChange}
+          onOptionChange={handleOptionChange}
+        />
+      )}
+      {config.isSunflower && <SunflowerControl options={options} onNumberChange={handleNumberChange} />}
+      {config.isHTree && <HTreeControl options={options} onNumberChange={handleNumberChange} />}
+      {config.isFisheye && <FisheyeControl options={options} onNumberChange={handleNumberChange} />}
+      {config.isCircularFan && <CircularFanControl options={options} onNumberChange={handleNumberChange} />}
+      {config.isPerspectiveStack && (
+        <PerspectiveStackControl options={options} onNumberChange={handleNumberChange} />
+      )}
+      {config.isCirclePackGrouped && (
+        <CirclePackGroupedControl
+          options={options}
+          onNumberChange={handleNumberChange}
+          onOptionChange={handleOptionChange}
+        />
+      )}
+      {config.usesReelHeights && (
+        <ReelHeightsControl options={options} onOptionChange={handleOptionChange} reelCount={6} />
+      )}
+      {config.isMegaways && <FixedColumnHeightControl options={options} onNumberChange={handleNumberChange} />}
+      {config.isKeno80Grid && (
+        <Keno80GridControl
+          options={options}
+          onNumberChange={handleNumberChange}
+          onOptionChange={handleOptionChange}
+        />
+      )}
+      {config.isRadialBallTumbler && (
+        <RadialBallTumblerControl options={options} onNumberChange={handleNumberChange} />
+      )}
+      {config.isPrizeLadder && (
+        <PrizeLadderControl options={options} onNumberChange={handleNumberChange} />
+      )}
+      {config.isSemicircleSeating && (
+        <SemicircleSeatingControl
+          options={options}
+          onNumberChange={handleNumberChange}
+          onOptionChange={handleOptionChange}
+        />
+      )}
+      {config.isChipStack && <ChipStackControl options={options} onNumberChange={handleNumberChange} />}
 
       <>
         <div className="control-group">

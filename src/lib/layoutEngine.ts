@@ -28,4 +28,25 @@ export interface LayoutOptions extends LO {
   priorityDirection?: 'columns' | 'rows';
   overflowAlignment?: 'start' | 'center' | 'end' | 'justify-corners';
   equalDistribution?: boolean;
+  ringCount?: number;
+  ringSpacing?: number;
+  ringPhase?: number;
+  branchingFactor?: number;
+  hTreeDepth?: number;
+  hTreeSpacing?: number;
+  fisheyeFocus?: number;
+  fisheyeScale?: number;
+  fisheyeSpread?: number;
+  fanCurvature?: number;
+  coverFlowCenter?: number;
+  coverFlowSkew?: number;
+  coverFlowDepth?: number;
+  categoryProperty?: string;
+  reelHeights?: number[];
+  fixedColumnHeight?: number;
+  jitter?: number;
+  tumbleIntensity?: number;
+  perspectiveScale?: number;
+  cellHighlightIndices?: number[];
+  cellHighlightOffset?: number;
 }

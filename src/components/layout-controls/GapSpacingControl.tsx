@@ -1,16 +1,20 @@
 interface SpacingControlsProps<T> {
   options: T
   onNumberChange: (key: keyof T, value: string) => void
+  slotLabels?: boolean
 }
 
 export const GapSpacingControl = <T extends { columnGap?: number; rowGap?: number; spacing?: number }>({
   options,
   onNumberChange,
+  slotLabels = false,
 }: SpacingControlsProps<T>) => {
+  const colLabel = slotLabels ? 'Reel gap (horizontal)' : 'Column Gap'
+  const rowLabel = slotLabels ? 'Symbol gap (vertical)' : 'Row Gap'
   return (
     <div className="control-group">
       <label htmlFor="col-gap-slider">
-        Column Gap: <span>{options.columnGap ?? options.spacing}</span>
+        {colLabel}: <span>{options.columnGap ?? options.spacing}</span>
       </label>
       <input
         type="range"
@@ -22,7 +26,7 @@ export const GapSpacingControl = <T extends { columnGap?: number; rowGap?: numbe
       />
 
       <label htmlFor="row-gap-slider" style={{ marginTop: '10px' }}>
-        Row Gap: <span>{options.rowGap ?? options.spacing}</span>
+        {rowLabel}: <span>{options.rowGap ?? options.spacing}</span>
       </label>
       <input
         type="range"

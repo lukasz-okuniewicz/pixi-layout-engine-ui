@@ -157,8 +157,10 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
       voronoiParser: options.layoutName === layoutEnum.VORONOI ? Delaunay : undefined,
     }
 
-    // Call Layout Engine
     applyLayout(container, engineOptions)
+    if (options.layoutName === layoutEnum.CHIP_STACK && 'sortableChildren' in container) {
+      (container as PIXI.Container).sortableChildren = true
+    }
 
     // Stage Centering
     container.position.set(app.screen.width / 2, app.screen.height / 2)
@@ -174,6 +176,7 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
       layoutEnum.ORBIT,
       layoutEnum.DNA,
       layoutEnum.REEL_SPINNER,
+      layoutEnum.RADIAL_BALL_TUMBLER,
     ]
 
     if (originCenteredLayouts.includes(options.layoutName as any)) {
@@ -236,19 +239,27 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
     if (!isPixiReady) return
 
     const hasChanged = (key: keyof ExtendedLayoutOptions) => options[key] !== prevOptions.current[key]
-
+    const slotLayouts = [layoutEnum.MEGAWAYS, layoutEnum.DIAMOND_REEL]
+    const reelHeightsSum = (o: ExtendedLayoutOptions) =>
+      (o.reelHeights?.length ? o.reelHeights.reduce((a, b) => a + b, 0) : 0) || 0
     const needsRecreation =
       hasChanged('sizingMode') ||
       hasChanged('fixedWidth') ||
       hasChanged('fixedHeight') ||
       hasChanged('componentCount') ||
       hasChanged('layoutName') ||
-      hasChanged('radiusScale')
+      hasChanged('radiusScale') ||
+      (slotLayouts.includes(options.layoutName as any) && reelHeightsSum(options) !== reelHeightsSum(prevOptions.current))
+    const isSlotLayout = slotLayouts.includes(options.layoutName as any)
+    const defaultReelHeights =
+      options.layoutName === layoutEnum.DIAMOND_REEL ? [3, 4, 5, 4, 3] : [4, 4, 4, 4, 4]
+    const reelHeightsForCount = options.reelHeights?.length ? options.reelHeights : defaultReelHeights
+    const slotCount = isSlotLayout ? reelHeightsForCount.reduce((a, b) => a + b, 0) : null
 
     if (needsRecreation || componentsRef.current.length === 0) {
       containerRef.current!.removeChildren()
       const comps: AnimatedLayoutComponent[] = []
-      const count = options.componentCount || 20
+      const count = slotCount ?? options.componentCount ?? 20
       const cols = options.columns || 5
 
       for (let i = 0; i < count; i++) {

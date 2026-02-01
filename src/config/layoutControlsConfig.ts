@@ -36,6 +36,22 @@ interface LayoutControlConfig {
   isOrbit?: boolean
   isDna?: boolean
   isReelSpinner?: boolean
+  isConcentricRings?: boolean
+  isSunflower?: boolean
+  isHTree?: boolean
+  isFisheye?: boolean
+  isCircularFan?: boolean
+  isPerspectiveStack?: boolean
+  isCirclePackGrouped?: boolean
+  isMegaways?: boolean
+  isDiamondReel?: boolean
+  usesReelHeights?: boolean
+  isKeno80Grid?: boolean
+  isRadialBallTumbler?: boolean
+  isPrizeLadder?: boolean
+  isRouletteBettingMat?: boolean
+  isSemicircleSeating?: boolean
+  isChipStack?: boolean
 }
 
 export const layoutControlsConfig: Partial<Record<LayoutName, LayoutControlConfig>> = {
@@ -164,6 +180,76 @@ export const layoutControlsConfig: Partial<Record<LayoutName, LayoutControlConfi
     isReelSpinner: true,
     usesJustifyContent: true,
   },
+  [layoutEnum.CONCENTRIC_RINGS]: {
+    usesSizing: true,
+    isConcentricRings: true,
+  },
+  [layoutEnum.SUNFLOWER]: {
+    usesSizing: true,
+    isDataDriven: true,
+    isSunflower: true,
+  },
+  [layoutEnum.H_TREE]: {
+    usesSizing: true,
+    isHTree: true,
+  },
+  [layoutEnum.FISHEYE]: {
+    usesSizing: true,
+    isFisheye: true,
+  },
+  [layoutEnum.CIRCULAR_FAN]: {
+    usesSizing: true,
+    isCircularFan: true,
+  },
+  [layoutEnum.PERSPECTIVE_STACK]: {
+    usesSizing: true,
+    isPerspectiveStack: true,
+  },
+  [layoutEnum.CIRCLE_PACK_GROUPED]: {
+    usesSizing: true,
+    isDataDriven: true,
+    isCirclePackGrouped: true,
+  },
+  [layoutEnum.MEGAWAYS]: {
+    usesGapSpacing: true,
+    usesSizing: true,
+    usesReelHeights: true,
+    isMegaways: true,
+  },
+  [layoutEnum.DIAMOND_REEL]: {
+    usesGapSpacing: true,
+    usesSizing: true,
+    usesReelHeights: true,
+    isDiamondReel: true,
+  },
+  [layoutEnum.KENO_80_GRID]: {
+    usesGapSpacing: true,
+    usesSizing: true,
+    isKeno80Grid: true,
+  },
+  [layoutEnum.RADIAL_BALL_TUMBLER]: {
+    usesSizing: true,
+    isRadialBallTumbler: true,
+  },
+  [layoutEnum.PRIZE_LADDER]: {
+    usesSizing: true,
+    isPrizeLadder: true,
+  },
+  [layoutEnum.ROULETTE_BETTING_MAT]: {
+    usesGapSpacing: true,
+    usesSizing: true,
+    usesAlignItems: true,
+    usesJustifyItems: true,
+    isRouletteBettingMat: true,
+  },
+  [layoutEnum.SEMICIRCLE_SEATING]: {
+    usesSizing: true,
+    isSemicircleSeating: true,
+  },
+  [layoutEnum.CHIP_STACK]: {
+    usesSizing: true,
+    isChipStack: true,
+  },
 }
 
 export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLayoutOptions)[]> = {
@@ -256,4 +342,20 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
   isOrbit: ['radius', 'orbitCount', 'orbitSpacing', 'orbitPhase', 'startAngle', 'rotateToCenter', 'rotationOffset'],
   isDna: ['radius', 'dnaPitch', 'dnaTwist', 'startAngle', 'rotateToCenter', 'rotationOffset'],
   isReelSpinner: ['spinDegrees', 'radius', 'itemAngleStep', 'depthScale', 'width', 'height'],
+  isConcentricRings: ['radius', 'ringCount', 'ringSpacing', 'ringPhase', 'startAngle', 'rotateToCenter', 'rotationOffset'],
+  isSunflower: ['spacing', 'radiusScale'],
+  isHTree: ['branchingFactor', 'hTreeDepth', 'hTreeSpacing'],
+  isFisheye: ['fisheyeFocus', 'fisheyeScale', 'fisheyeSpread'],
+  isCircularFan: ['arcRadius', 'arcAngle', 'fanCurvature'],
+  isPerspectiveStack: ['coverFlowCenter', 'coverFlowSkew', 'coverFlowDepth'],
+  isCirclePackGrouped: ['categoryProperty', 'boundsRadius', 'padding', 'iterations', 'centerStrength', 'radiusScale'],
+  usesReelHeights: ['reelHeights'],
+  isMegaways: ['fixedColumnHeight'],
+  isDiamondReel: [],
+  isKeno80Grid: ['columns', 'rows', 'cellHighlightIndices', 'cellHighlightOffset'],
+  isRadialBallTumbler: ['radius', 'tumbleIntensity'],
+  isPrizeLadder: ['perspectiveScale', 'rowGap', 'itemSpacing'],
+  isRouletteBettingMat: ['columnGap', 'rowGap', 'sizingMode', 'fixedWidth', 'fixedHeight', 'alignItems', 'justifyItems'],
+  isSemicircleSeating: ['radius', 'tableCurvature', 'startAngle', 'endAngle', 'rotateToCenter'],
+  isChipStack: ['offsetX', 'offsetY', 'offsetRotation', 'stackLeaning', 'chipStackOffsetY'],
 }
