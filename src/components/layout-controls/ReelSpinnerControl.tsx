@@ -4,9 +4,10 @@ import { ExtendedLayoutOptions } from '../LayoutController'
 interface ReelSpinnerControlProps {
   options: ExtendedLayoutOptions
   onNumberChange: (key: keyof ExtendedLayoutOptions, value: string) => void
+  onOptionChange: (key: keyof ExtendedLayoutOptions, value: any) => void
 }
 
-export const ReelSpinnerControl: React.FC<ReelSpinnerControlProps> = ({ options, onNumberChange }) => {
+export const ReelSpinnerControl: React.FC<ReelSpinnerControlProps> = ({ options, onNumberChange, onOptionChange }) => {
   return (
     <div className="control-group">
       <div className="sub-control">
@@ -65,6 +66,18 @@ export const ReelSpinnerControl: React.FC<ReelSpinnerControlProps> = ({ options,
           onChange={(e) => onNumberChange('depthScale', e.target.value)}
         />
       </div>
+
+        <div className="sub-control checkbox-control">
+            <label htmlFor="reelAlphaFade">
+                <input
+                    id="reelAlphaFade"
+                    type="checkbox"
+                    checked={!!options.reelAlphaFade}
+                    onChange={(e) => onOptionChange('reelAlphaFade', e.target.checked)}
+                />
+                Enable Alpha Fade
+            </label>
+        </div>
 
         <div className="sub-control">
             <label htmlFor="stretchX">

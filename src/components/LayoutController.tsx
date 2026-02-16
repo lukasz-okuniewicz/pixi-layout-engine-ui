@@ -64,6 +64,7 @@ export type ExtendedLayoutOptions = LayoutOptions & {
   demoSpan2_col?: number
   demoSpan2_row?: number
   origin?: number
+  reelAlphaFade?: number
 }
 
 interface LayoutControllerProps {
@@ -200,7 +201,7 @@ export const LayoutController: React.FC<LayoutControllerProps> = ({ options, set
           onOptionChange={handleOptionChange}
         />
       )}
-      {config.isReelSpinner && <ReelSpinnerControl options={options} onNumberChange={handleNumberChange} />}
+      {config.isReelSpinner && <ReelSpinnerControl options={options} onNumberChange={handleNumberChange} onOptionChange={handleOptionChange}  />}
       {config.isConcentricRings && (
         <ConcentricRingsControl
           options={options}

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "d3-delaunay": "6.0.4",
-    "pixi-layout-engine": "2.14.0",
+    "pixi-layout-engine": "2.14.1",
     "next": "15.5.4",
     "pixi.js": "8.13.2",
     "react": "19.1.1",
