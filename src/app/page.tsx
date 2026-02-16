@@ -65,6 +65,9 @@ export default function Home() {
     sortBy: null,
     spinDegrees: 0,
     itemAngleStep: 30,
+    stretchX: 0,
+    stretchY: 0,
+    depthScale: 0.5,
   })
 
   return (

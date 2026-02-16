@@ -65,6 +65,39 @@ export const ReelSpinnerControl: React.FC<ReelSpinnerControlProps> = ({ options,
           onChange={(e) => onNumberChange('depthScale', e.target.value)}
         />
       </div>
+
+        <div className="sub-control">
+            <label htmlFor="stretchX">
+                Stretch X (Width): <span>{options.stretchX || 0}</span>
+            </label>
+            <input
+                type="range"
+                id="stretchX"
+                min="0"
+                max="1"
+                step="0.01"
+                value={options.stretchX || 0}
+                onChange={(e) => onNumberChange('stretchX', e.target.value)}
+            />
+        </div>
+
+        <div className="sub-control">
+            <label htmlFor="stretchY">
+                Stretch Y (Height): <span>{options.stretchY || 0}</span>
+            </label>
+            <input
+                type="range"
+                id="stretchY"
+                min="0"
+                max="1"
+                step="0.01"
+                value={options.stretchY || 0}
+                onChange={(e) => onNumberChange('stretchY', e.target.value)}
+            />
+        </div>
+
+        <p className="control-note">Stretch squashes symbols at the top/bottom curves.</p>
+
       <div className="sub-control">
         <label>
           Window Width: <span>{options.width || 200}</span>

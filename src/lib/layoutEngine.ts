@@ -49,4 +49,7 @@ export interface LayoutOptions extends LO {
   perspectiveScale?: number;
   cellHighlightIndices?: number[];
   cellHighlightOffset?: number;
+  stretchStrength?: number | { x: number; y: number };
+  stretchX?: number;
+  stretchY?: number;
 }

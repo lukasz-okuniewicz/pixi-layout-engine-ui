@@ -341,7 +341,7 @@ export const controlKeyMap: Record<keyof LayoutControlConfig, (keyof ExtendedLay
   usesCornerOffset: ['cornerOffset'],
   isOrbit: ['radius', 'orbitCount', 'orbitSpacing', 'orbitPhase', 'startAngle', 'rotateToCenter', 'rotationOffset'],
   isDna: ['radius', 'dnaPitch', 'dnaTwist', 'startAngle', 'rotateToCenter', 'rotationOffset'],
-  isReelSpinner: ['spinDegrees', 'radius', 'itemAngleStep', 'depthScale', 'width', 'height'],
+  isReelSpinner: ['spinDegrees', 'radius', 'itemAngleStep', 'depthScale', 'width', 'height', 'stretchX', 'stretchY' ],
   isConcentricRings: ['radius', 'ringCount', 'ringSpacing', 'ringPhase', 'startAngle', 'rotateToCenter', 'rotationOffset'],
   isSunflower: ['spacing', 'radiusScale'],
   isHTree: ['branchingFactor', 'hTreeDepth', 'hTreeSpacing'],

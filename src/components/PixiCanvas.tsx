@@ -152,12 +152,29 @@ export const PixiCanvas: React.FC<{ options: ExtendedLayoutOptions }> = ({ optio
 
     const engineOptions: any = {
       ...options,
+      stretchStrength: {
+        x: options.stretchX ?? 0,
+        y: options.stretchY ?? 0
+      },
       radiusOffset: radiusOffsetFunctions[options.radiusOffsetType || 'none'],
       pathParser: options.layoutName === layoutEnum.PATH ? SvgPathProperties : undefined,
       voronoiParser: options.layoutName === layoutEnum.VORONOI ? Delaunay : undefined,
     }
 
     applyLayout(container, engineOptions)
+
+    const needsSorting = [layoutEnum.REEL_SPINNER, layoutEnum.CHIP_STACK, layoutEnum.CIRCLE].includes(options.layoutName as any);
+
+    if ('sortableChildren' in container) {
+      (container as any).sortableChildren = needsSorting;
+    }
+
+    if ([layoutEnum.CHIP_STACK, layoutEnum.REEL_SPINNER].includes(options.layoutName as any)) {
+      if ('sortableChildren' in container) {
+        (container as PIXI.Container).sortableChildren = true
+      }
+    }
+
     if (options.layoutName === layoutEnum.CHIP_STACK && 'sortableChildren' in container) {
       (container as PIXI.Container).sortableChildren = true
     }
